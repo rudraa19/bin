@@ -43,7 +43,7 @@ const BinForm = () => {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                <SelectItem value='0'>Never</SelectItem>
+                                <SelectItem value='0n'>Never</SelectItem>
                                 <SelectItem value='10m'>10 minutes</SelectItem>
                                 <SelectItem value='1h'>1 Hour</SelectItem>
                                 <SelectItem value='1d'>1 day</SelectItem>

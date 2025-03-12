@@ -1,11 +1,28 @@
 import { NAMESPACE, generateShortId } from "../../utils/index.js";
 
 const storeData = async (req, res) => {
-  const data = req.body.data;
+  const { title, data, expiration } = req.body;
 
-  if (!data) {
+  if (!data || !title || !expiration) {
     return res.json({
-      message: "Data is required!",
+      message: "Please provide all the required data",
+    });
+  }
+
+  const expirationDict = {
+    "0n": 0,
+    "10m": 600,
+    "1h": 3600,
+    "1d": 86400,
+    "1w": 606800,
+    "2w": 1209600,
+    "1M": 2592000,
+  };
+  const expirationSeconds = expirationDict[expiration];
+
+  if (expirationSeconds === undefined) {
+    return res.json({
+      message: "Please enter valid expiration",
     });
   }
 
@@ -21,12 +38,16 @@ const storeData = async (req, res) => {
     } while (alreadyExist && attempts > 0);
 
     if (alreadyExist) {
-      return res
-        .status(500)
-        .json({ message: "Failed to generate a unique key" });
+      return res.status(500).json({
+        message: "Failed to generate a unique key",
+      });
     }
-
-    await NAMESPACE.put(key, data);
+    const value = { title, data };
+    await NAMESPACE.put(
+      key,
+      value,
+      expirationSeconds === 0 ? {} : { expirationTtl: expirationSeconds }
+    );
 
     res.json({
       key,
