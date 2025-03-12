@@ -2,7 +2,7 @@ import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 import { Input } from './ui/input';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { client } from '../../config'
 
 const BinForm = () => {
@@ -10,16 +10,31 @@ const BinForm = () => {
     const [title, setTitle] = useState();
     const [expiration, setExpiration] = useState();
     const [data, setData] = useState();
+    const [isClicked, setIsClicked] = useState(false);
+
+    useEffect(() => {
+        if (isClicked) {
+            document.body.style.cursor = "wait"
+        } else {
+            document.body.style.cursor = "inherit"
+        }
+
+        return () => {
+            document.body.style.cursor = "inherit"
+        }
+    }, [isClicked])
 
     async function handleSubmit(e) {
         e.preventDefault();
+        setIsClicked(true);
         try {
             const result = await client.post('/v1/content', {
                 title,
                 expiration,
                 data
             })
-            console.log(result.data.key)
+            setIsClicked(false);
+            window.location.href = `/${result.data.key}`
         } catch (e) {
             console.log(e)
         }
@@ -32,7 +47,7 @@ const BinForm = () => {
                     <label>Title:</label>
                     <div className='flex justify-between'>
                         <Input className='w-[400px]' placeholder="Enter your title" onChange={(e) => setTitle(e.target.value)} required />
-                        <Button className='mr-[20px]' type="submit">+ Create</Button>
+                        <Button className={`mr-[20px] ml-[10px] ${isClicked ? 'opacity-[0.6]' : 'opacity-[1]'}`} type="submit">+ Create</Button>
                     </div>
                 </div>
                 <div className='py-[10px]'>
