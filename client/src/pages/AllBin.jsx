@@ -21,7 +21,7 @@ const AllBin = () => {
     }, []);
 
     return (
-        <div className='p-[20px] h-[90dvh] flex flex-wrap w-full'>
+        <div className='p-[20px] flex flex-col flex-wrap sm:flex-row w-full'>
             {isLoading ? (
                 <div className="flex justify-center items-center flex-col w-full h-full">
                     <h2 className='text-[28px] font-bold'>Loading...</h2>

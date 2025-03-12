@@ -49,6 +49,8 @@ const storeData = async (req, res) => {
       expirationSeconds === 0 ? {} : { expirationTtl: expirationSeconds }
     );
 
+    await NAMESPACE.get(key);
+
     res.json({
       key,
     });
