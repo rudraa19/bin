@@ -10,7 +10,7 @@ const Navbar = () => {
                     </Link>
                 </div>
                 <div>
-                    <Button className='mx-[4px]' variant='outline'>+New</Button>
+                    <Button className='mx-[4px]' variant='outline' onClick={() => window.location.href = "/"}>+New</Button>
                     <Button className='mx-[4px]' variant='outline'>All pastes</Button>
                 </div>
             </div>
