@@ -11,7 +11,7 @@ const Navbar = () => {
                 </div>
                 <div>
                     <Button className='mx-[4px]' variant='outline' onClick={() => window.location.href = "/"}>+New</Button>
-                    <Button className='mx-[4px]' variant='outline'>All pastes</Button>
+                    <Button className='mx-[4px]' variant='outline' onClick={() => window.location.href = "/all"}>All pastes</Button>
                 </div>
             </div>
         </>

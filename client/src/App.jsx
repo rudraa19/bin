@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import PasteBin from "./pages/PasteBin"
+import AllBin from './pages/AllBin';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route path="" element={<Home />} />
           <Route path=":id" element={<PasteBin />} />
+          <Route path="all" element={<AllBin />} />
         </Route>
       </Routes>
     </BrowserRouter>
