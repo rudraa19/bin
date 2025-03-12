@@ -1,22 +1,43 @@
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 import { Input } from './ui/input';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from './ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import { useState } from 'react';
+import { client } from '../../config'
 
 const BinForm = () => {
+
+    const [title, setTitle] = useState();
+    const [expiration, setExpiration] = useState();
+    const [data, setData] = useState();
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        try {
+            const result = await client.post('/v1/content', {
+                title,
+                expiration,
+                data
+            })
+            console.log(result.data.key)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     return (
         <div className='p-[20px]'>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <label>Title:</label>
                     <div className='flex justify-between'>
-                        <Input className='w-[400px]' placeholder="Enter your title" required />
+                        <Input className='w-[400px]' placeholder="Enter your title" onChange={(e) => setTitle(e.target.value)} required />
                         <Button className='mr-[20px]' type="submit">+ Create</Button>
                     </div>
                 </div>
                 <div className='py-[10px]'>
-                    <lable>Expires in:</lable>
-                    <Select required>
+                    <label>Expires in:</label>
+                    <Select onValueChange={setExpiration} required>
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Bin expires in" />
                         </SelectTrigger>
@@ -35,7 +56,7 @@ const BinForm = () => {
                 </div>
                 <div>
                     <label>Editor:</label>
-                    <Textarea className="h-[400px]" placeholder="Paste your text here" required />
+                    <Textarea onChange={(e) => setData(e.target.value)} className="h-[400px]" placeholder="Paste your text here" required />
                 </div>
             </form>
         </div>
