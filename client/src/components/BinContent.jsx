@@ -35,7 +35,7 @@ const BinContent = ({ id }) => {
             <h2 className='text-[28px] font-bold'>{title}</h2>
             <br />
             <Card className="p-[15px]">
-                <pre>
+                <pre className='w-full break-words whitespace-pre-wrap overflow-auto'>
                     {data}
                 </pre>
             </Card>

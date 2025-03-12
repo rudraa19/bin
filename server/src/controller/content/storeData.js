@@ -14,7 +14,7 @@ const storeData = async (req, res) => {
     "10m": 600,
     "1h": 3600,
     "1d": 86400,
-    "1w": 606800,
+    "1w": 604800,
     "2w": 1209600,
     "1M": 2592000,
   };
@@ -49,9 +49,11 @@ const storeData = async (req, res) => {
       expirationSeconds === 0 ? {} : { expirationTtl: expirationSeconds }
     );
 
-    res.json({
-      key,
-    });
+    setTimeout(() => {
+      res.json({
+        key,
+      });
+    }, 1000 * 3);
   } catch (error) {
     console.log(error);
     res.status(500).json({
