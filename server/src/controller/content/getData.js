@@ -1,11 +1,11 @@
 import { NAMESPACE } from "../../utils/index.js";
 
 const getData = async (req, res) => {
-  const key = req.body.key;
+  const key = req.query.key;
 
   if (!key) {
     return res.status(400).json({
-      messge: "Key is required!",
+      message: "Key is required!",
     });
   }
 
@@ -14,17 +14,19 @@ const getData = async (req, res) => {
 
     if (!result) {
       return res.status(404).json({
-        messge: "Data not found!",
+        message: "Data not found!",
       });
     }
+    let parseResult = JSON.parse(result);
 
     res.json({
-      result,
+      title: parseResult.title,
+      content: parseResult.data,
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      messge: "Internal server error",
+      message: "Internal server error",
     });
   }
 };

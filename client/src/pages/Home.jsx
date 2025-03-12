@@ -1,10 +1,8 @@
-import BinForm from "../components/BinForm"
-import Navbar from "../components/Navbar"
+import BinForm from '../components/BinForm'
 
 const Home = () => {
     return (
         <>
-            <Navbar />
             <BinForm />
         </>
     )
