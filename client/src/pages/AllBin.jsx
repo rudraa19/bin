@@ -28,9 +28,10 @@ const AllBin = () => {
                     <p>This might take a few seconds...</p>
                 </div>
             ) : (
-                data.map((item) => (
-                    <BinCard key={item.key} binKey={item.key} title={item.title} />
-                ))
+                data.length == 0 ? "There are no pastes in the bin right now." :
+                    data.map((item) => (
+                        <BinCard key={item.key} binKey={item.key} title={item.title} />
+                    ))
             )}
         </div>
 
