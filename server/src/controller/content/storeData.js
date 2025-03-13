@@ -49,11 +49,14 @@ const storeData = async (req, res) => {
       expirationSeconds === 0 ? {} : { expirationTtl: expirationSeconds }
     );
 
-    setTimeout(() => {
-      res.json({
-        key,
-      });
-    }, 1000 * 3);
+    let result;
+    while (!result) {
+      result = await NAMESPACE.get(key);
+    }
+
+    res.json({
+      key,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({
