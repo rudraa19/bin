@@ -1,4 +1,5 @@
-import { NAMESPACE, generateShortId } from "../../utils/index.js";
+import { BinModel } from "../../db.js";
+import { generateShortId } from "../../utils/index.js";
 
 const storeData = async (req, res) => {
   const { title, data, expiration } = req.body;
@@ -18,6 +19,7 @@ const storeData = async (req, res) => {
     "2w": 1209600,
     "1M": 2592000,
   };
+
   const expirationSeconds = expirationDict[expiration];
 
   if (expirationSeconds === undefined) {
@@ -28,31 +30,33 @@ const storeData = async (req, res) => {
 
   try {
     let key;
-    let alreadyExist;
     let attempts = 3;
-
+    let existingData;
     do {
       key = generateShortId();
-      alreadyExist = await NAMESPACE.get(key);
+      existingData = await BinModel.findOne({ key });
       attempts--;
-    } while (alreadyExist && attempts > 0);
+    } while (existingData && attempts > 0);
 
-    if (alreadyExist) {
+    if (attempts === 0) {
       return res.status(500).json({
         message: "Failed to generate a unique key",
       });
     }
-    const value = { title, data };
-    await NAMESPACE.put(
-      key,
-      value,
-      expirationSeconds === 0 ? {} : { expirationTtl: expirationSeconds }
-    );
 
-    let result;
-    while (!result) {
-      result = await NAMESPACE.get(key);
-    }
+    const expiresAt =
+      expirationSeconds === 0
+        ? null
+        : new Date(Date.now() + expirationSeconds * 1000);
+
+    const newData = new BinModel({
+      key,
+      title,
+      data,
+      expiresAt,
+    });
+
+    await newData.save();
 
     res.json({
       key,

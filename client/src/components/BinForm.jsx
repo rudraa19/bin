@@ -33,11 +33,11 @@ const BinForm = () => {
                 expiration,
                 data
             })
-            setIsClicked(false);
             window.location.href = `/${result.data.key}`
         } catch (e) {
             console.log(e)
         }
+        setIsClicked(false);
     }
 
     return (

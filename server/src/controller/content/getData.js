@@ -1,4 +1,4 @@
-import { NAMESPACE } from "../../utils/index.js";
+import { BinModel } from "../../db.js";
 
 const getData = async (req, res) => {
   const key = req.query.key;
@@ -10,18 +10,17 @@ const getData = async (req, res) => {
   }
 
   try {
-    const result = await NAMESPACE.get(key);
+    const result = await BinModel.findOne({ key });
 
     if (!result) {
       return res.status(404).json({
         message: "Data not found!",
       });
     }
-    let parseResult = JSON.parse(result);
 
     res.json({
-      title: parseResult.title,
-      content: parseResult.data,
+      title: result.title,
+      content: result.data,
     });
   } catch (error) {
     console.log(error);
