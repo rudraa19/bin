@@ -11,4 +11,4 @@ const binSchema = new Schema({
 
 binSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
-export const BinModel = new model("user", binSchema);
+export const BinModel = new model("bin", binSchema);
