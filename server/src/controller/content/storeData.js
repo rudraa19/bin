@@ -11,13 +11,12 @@ const storeData = async (req, res) => {
   }
 
   const expirationDict = {
-    "0n": 0,
-    "10m": 600,
-    "1h": 3600,
-    "1d": 86400,
-    "1w": 604800,
-    "2w": 1209600,
-    "1M": 2592000,
+    "10m": 10 * 60,
+    "1h": 1 * 60 * 60,
+    "6h": 6 * 60 * 60,
+    "12h": 12 * 60 * 60,
+    "24h": 24 * 60 * 60,
+    "48h": 48 * 60 * 60,
   };
 
   const expirationSeconds = expirationDict[expiration];

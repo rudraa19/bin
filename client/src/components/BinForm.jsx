@@ -58,13 +58,12 @@ const BinForm = () => {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                <SelectItem value='0n'>Never</SelectItem>
-                                <SelectItem value='10m'>10 minutes</SelectItem>
+                                <SelectItem value='10m'>10 Minutes</SelectItem>
                                 <SelectItem value='1h'>1 Hour</SelectItem>
-                                <SelectItem value='1d'>1 day</SelectItem>
-                                <SelectItem value='1w'>1 week</SelectItem>
-                                <SelectItem value='2w'>2 week</SelectItem>
-                                <SelectItem value='1M'>1 month</SelectItem>
+                                <SelectItem value='6h'>6 Hours</SelectItem>
+                                <SelectItem value='12h'>12 Hours</SelectItem>
+                                <SelectItem value='24h'>24 Hours</SelectItem>
+                                <SelectItem value='48h'>48 Hours</SelectItem>
                             </SelectGroup>
                         </SelectContent>
                     </Select >
