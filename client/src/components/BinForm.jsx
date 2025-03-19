@@ -35,7 +35,7 @@ const BinForm = () => {
             })
             window.location.href = `/${result.data.key}`
         } catch (e) {
-            console.log(e)
+            alert(e)
         }
         setIsClicked(false);
     }

@@ -22,7 +22,7 @@ const BinContent = ({ id }) => {
                     setTitle("404 - Bin not Found");
                     setData("This bin doesn't exist or it may have expired.");
                 } else {
-                    console.error(e);
+                    alert(e)
                 }
             }
         };

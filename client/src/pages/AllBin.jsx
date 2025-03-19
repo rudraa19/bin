@@ -13,7 +13,7 @@ const AllBin = () => {
                 const result = await client.get('/v1/content/all');
                 setData(result.data.data);
             } catch (e) {
-                console.log(e);
+                alert(e)
             }
             setIsLoading(false)
         }
